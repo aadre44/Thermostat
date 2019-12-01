@@ -51,7 +51,6 @@ class WorkThread(QRunnable):
     @pyqtSlot()
     def run(self):
         print("run Function entered")
-        self.thermostat.autoOn
         self.thermostat.cycle
 
 
@@ -241,7 +240,7 @@ class Ui_Form(object):
         #self.btnDown.clicked.connect(self.thermostat.tempDown)
         self.btnAC.clicked.connect(self.thermostat.acOn)
         self.btnHeat.clicked.connect(self.thermostat.heatOn)
-        #self.btnAuto.clicked.connect(self.thermostat.autoOn)
+        self.btnAuto.clicked.connect(self.thermostat.autoOn)
         self.btnAuto.clicked.connect(self.runCycle)
         self.btnOff.clicked.connect(self.thermostat.turnOff)
         self.btnSchedule.clicked.connect(self.thermostat.getCurTemp)
@@ -249,6 +248,8 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+
+        self.runCycle()
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -321,6 +322,7 @@ class Ui_Form(object):
     def updateDesiredTemp(self):
         print("setting "+str(self.thermostat.desiredTemp))
         self.labelTemp.setText(str(self.thermostat.desiredTemp))
+
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
